@@ -12,35 +12,34 @@ logger = LogGen.loggen()
 class TestFunctionality:
     """Class describes the methods to test cases"""
 
-    def test_sigin_functionality(self, setup):
+    def test_challenge_functionality(self, setup):
         """This methods tests functionality of the application"""
 
         self.driver = setup
         self.driver.get(base_url)
-        logger.info("**********Landing Page*******")
-        logger.info("*************Test Case  001**********************")
+        logger.info("*************Test Cases running**********************")
 
         
         #instatianting the page object class
-        landing_page = MagentoFunctionality(self.driver)
+        page_obj = MagentoFunctionality(self.driver)
     
         page_title = self.driver.title
         if page_title == TestData.home_page_title:
             
-            landing_page.click_signin_on_landingpage()
-            landing_page.signin_submit() 
-            landing_page.navigate_to_tees()
-            landing_page.filter_options()
-            landing_page.add_to_cart()
-            landing_page.proceed_to_checkout()
-            landing_page.verify_cart_subtotal()
-            landing_page.verify_order_summary()
-            landing_page.print_values()
+            page_obj.click_signin_on_landingpage()
+            page_obj.signin_submit() 
+            page_obj.navigate_to_tees()
+            page_obj.filter_options()
+            page_obj.add_to_cart()
+            page_obj.proceed_to_checkout()
+            page_obj.verify_cart_subtotal()
+            page_obj.verify_order_summary()
+            page_obj.print_values()
             
             time.sleep(10) 
            
         else:
-            logger.error("***Uichecks  Fialed***")
+            logger.error("***Tests  Fialed***")
             self.driver.save_screenshot("../screenshots/test_challenge3.png")
         self.driver.quit()
 

@@ -5,7 +5,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from .base_page import BasePage
-from .page_elements import PageElements
 from configurations.test_data import TestData
 
 
@@ -40,14 +39,16 @@ class MagentoFunctionality(BasePage):
         
         
     def navigate_to_tees(self):
-        women_link = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Women']")))
+        wait = WebDriverWait(self.driver, 10)
+        women_link = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Women']")))
         women_link.click()
         
         tees_link = self.driver.find_element(By.XPATH, "//a[contains(text(),'Tees')]")
         tees_link.click()
 
     def filter_options(self):
-        size_checkbox = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[normalize-space()='Size']")))
+        wait = WebDriverWait(self.driver, 10)
+        size_checkbox = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[normalize-space()='Size']")))
         size_checkbox.click()
 
         select_large = self.driver.find_element(By.XPATH, "//a[@aria-label='L']//div[contains(@class,'swatch-option text')][normalize-space()='L']")
@@ -67,13 +68,14 @@ class MagentoFunctionality(BasePage):
         max_price_input.click()
         
     def add_to_cart(self):
-        item = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@title='Add to Cart']")))
+        wait = WebDriverWait(self.driver, 10)
+        item = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@title='Add to Cart']")))
         item.click()
         
-        show_items = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@class='action showcart']")))
+        show_items = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@class='action showcart']")))
         show_items.click()
    
-        quantity_input = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='cart-item-309913-qty']")))
+        quantity_input = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='cart-item-309913-qty']")))
         quantity_input.clear()
         quantity_input.send_keys("3")
         
@@ -82,19 +84,22 @@ class MagentoFunctionality(BasePage):
         add_to_cart_button.click()
         
     def proceed_to_checkout(self):
-        proceed_to_checkout_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='top-cart-btn-checkout']")))
+        wait = WebDriverWait(self.driver, 10)
+        proceed_to_checkout_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='top-cart-btn-checkout']")))
         proceed_to_checkout_button.click()
 
 
     def verify_cart_subtotal(self):
-        cart_icon = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a[title='View your shopping cart']")))
+        wait = WebDriverWait(self.driver, 10)
+        cart_icon = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a[title='View your shopping cart']")))
         cart_icon.click()
 
-        cart_subtotal = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".totals .price")))
+        cart_subtotal = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".totals .price")))
         print(f"Cart Subtotal: {cart_subtotal.text}")
 
     def verify_shipping(self):
-        shipping_address = self.wait.until(EC.presence_of_element_located((By.XPATH, "//div[normalize-space()='Shipping Address']")))
+        wait = WebDriverWait(self.driver, 10)
+        shipping_address = wait.until(EC.presence_of_element_located((By.XPATH, "//div[normalize-space()='Shipping Address']")))
         print(f"Shipping Address: {shipping_address.text}")
 
         shipping_methods = self.driver.find_elements(By.XPATH, "//div[normalize-space()='Shipping Methods']")
@@ -106,6 +111,7 @@ class MagentoFunctionality(BasePage):
         next_button.click()
 
     def verify_order_summary(self):
+        wait = WebDriverWait(self.driver, 10)
         cart_subtotal = self.driver.find_element(By.CSS_SELECTOR, "#subtotal span.price")
         shipping_cost = self.driver.find_element(By.CSS_SELECTOR, "#shipping .price")
         order_total = self.driver.find_element(By.CSS_SELECTOR, "#grand_total .price")
@@ -114,7 +120,7 @@ class MagentoFunctionality(BasePage):
         print(f"Shipping Cost: {shipping_cost.text}")
         print(f"Order Total: {order_total.text}")
 
-        view_details_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@title, 'View Details')]")))
+        view_details_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@title, 'View Details')]")))
         view_details_button.click()
 
     def print_values(self):
