@@ -18,7 +18,7 @@ class TestFunctionality:
         self.driver = setup
         self.driver.get(base_url)
         logger.info("**********Landing Page*******")
-        logger.info("*************Test Case  002**********************")
+        logger.info("*************Test Case  001**********************")
 
         
         #instatianting the page object class
