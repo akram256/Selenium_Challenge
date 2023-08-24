@@ -1,4 +1,5 @@
-import time
+    
+    
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
@@ -12,61 +13,10 @@ from configurations.test_data import TestData
 # Instianting Test data Class
 test_data = TestData()
 
-class MagentoFunctionality(BasePage):
+class Cart(BasePage):
     """Class describes test scripts for Functionality """
-                
-    def click_signin_on_landingpage(self):
-        SignIn_xpath = "//div[@class='panel header']//a[contains(text(),'Sign In')]"
-        wait = WebDriverWait(self.driver, 10)
-        element = SignIn_xpath
-        sign_in_button = wait.until(EC.element_to_be_clickable((By.XPATH, element)))
-        sign_in_button.click()
-               
-        
-    def signin_submit(self):
-        username = test_data.username
-        password = test_data.password
-       
-        wait = WebDriverWait(self.driver, 10)
-                
-        username_field = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='email']")))
-        password_field = self.driver.find_element(By.XPATH, "//fieldset[@class='fieldset login']//input[@id='pass']")
-        sign_in_submit = self.driver.find_element(By.XPATH, "//fieldset[@class='fieldset login']//span[contains(text(),'Sign In')]")
-        
-        username_field.send_keys(username)
-        password_field.send_keys(password)
-        sign_in_submit.click()
-        
-        
-    def navigate_to_tees(self):
-        wait = WebDriverWait(self.driver, 10)
-        women_link = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Women']")))
-        women_link.click()
-        
-        tees_link = self.driver.find_element(By.XPATH, "//a[contains(text(),'Tees')]")
-        tees_link.click()
-
-    def filter_options(self):
-        wait = WebDriverWait(self.driver, 10)
-        size_checkbox = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[normalize-space()='Size']")))
-        size_checkbox.click()
-
-        select_large = self.driver.find_element(By.XPATH, "//a[@aria-label='L']//div[contains(@class,'swatch-option text')][normalize-space()='L']")
-        select_large.click()
-        
-        color_checkbox = self.driver.find_element(By.XPATH, "//div[normalize-space()='Color']")
-        color_checkbox.click()
-
-        color_select = self.driver.find_element(By.XPATH, "//a[@aria-label='White']//div[contains(@class,'swatch-option color')]")
-        color_select.click()
-        
-        
-        click_price = self.driver.find_element(By.XPATH, "//div[normalize-space()='Price']")
-        click_price.click()
-        
-        max_price_input = self.driver.find_element(By.ID, "//span[normalize-space()='$20.00']")
-        max_price_input.click()
-        
+                   
+    
     def add_to_cart(self):
         wait = WebDriverWait(self.driver, 10)
         item = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@title='Add to Cart']")))
