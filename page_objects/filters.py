@@ -13,9 +13,6 @@ test_data = TestData()
 
 class FilterOptions(BasePage):
     """Class describes test scripts for Functionality """
-                
-    
-    
     
     def filter_options(self):
         wait = WebDriverWait(self.driver, 10)
